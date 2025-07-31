@@ -13,3 +13,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Quiz {
+  id Int      @id @default(autoincrement())
+  name String
+  subject String
+  currentScore Decimal
+  averageScore Decimal
+  active Boolean
+}
+
+model Scores {
+  id Int      @id @default(autoincrement())
+  score Decimal
+  starttime DateTime
+  endtime DateTime
+  attempt Int
+}
+
+model Rel_Quiz_Scores {
+  scoreId Int      @id @default(autoincrement())
+  quizId Int
+}
+
+model QuestionBank {
+  id Int      @id @default(autoincrement())
+  q_num Int
+  question String
+  correct_answer String
+}
+
+model Rel_Quiz_Quest {
+  questId Int      @id @default(autoincrement())
+  quizId Int
+}
+
+model Responses {
+  id Int      @id @default(autoincrement())
+  response String
+  correct Boolean
+}
+
+model Rel_Response_Question {
+  responseId Int      @id @default(autoincrement())
+  questId Int
+}
+
+
+
