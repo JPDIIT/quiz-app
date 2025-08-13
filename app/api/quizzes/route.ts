@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { name, subject } = body
     
-
     if (!name || typeof name !== 'string') {
       return Response.json({
         success: false,
