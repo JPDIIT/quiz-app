@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, subject } = body
+    
 
     if (!name || typeof name !== 'string') {
       return Response.json({
@@ -43,14 +44,21 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
 
+    if (!subject || typeof subject !== 'string') {
+      return Response.json({
+        success: false,
+        message: 'subject is required and must be a string'
+      }, { status: 400 })
+    }
+
     const quiz = await prisma.quiz.create({
       data: {
         name: name.trim(),
         subject: subject.trim(),
-        currentScore: 0,
-        averageScore: 0,
-        active: true
-      }
+        currentScore: 0.0,
+        averageScore: 0.0,
+        active: true,
+      },
     })
 
     return Response.json({
