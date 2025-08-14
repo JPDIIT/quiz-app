@@ -36,12 +36,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { score, start, end, attempt, quizId } = body
 
+    const attempt_count = await prisma.scores.count({
+      select: { attempt: true },
+    })
+
+    let this_attempt = attempt +1
+
     const scores = await prisma.scores.create({
       data: {
         score: score,
         starttime: new Date(start).toISOString(),
         endtime: new Date(end).toISOString(),
-        attempt: attempt
+        attempt: this_attempt
       }
     })
 
