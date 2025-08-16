@@ -34,27 +34,27 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { score, start, end, attempt, quizId } = body
+    const { score, start, end, quizId } = body
 
-    const attempt_count = await prisma.scores.count({
-      select: { attempt: true },
+    const get_attempt = await prisma.scores.aggregate({
+      _max: {
+        attempt: true,
+      },
+      where: {
+        quizId: quizId, 
+      },
     })
 
-    let this_attempt = attempt +1
+    const nextAttempt = (get_attempt._max.attempt ?? 0) + 1;
 
     const scores = await prisma.scores.create({
       data: {
+        quizId: quizId,
         score: score,
         starttime: new Date(start).toISOString(),
         endtime: new Date(end).toISOString(),
-        attempt: this_attempt
+        attempt: nextAttempt
       }
-    })
-
-    const quiz_scores = await prisma.rel_Quiz_Scores.create({
-        data: {
-            quizId: quizId
-        }
     })
 
     return Response.json({

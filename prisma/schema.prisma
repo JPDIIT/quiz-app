@@ -25,15 +25,11 @@ model Quiz {
 
 model Scores {
   id Int      @id @default(autoincrement())
+  quizId Int?
   score Decimal
   starttime DateTime
   endtime DateTime
   attempt Int
-}
-
-model Rel_Quiz_Scores {
-  scoreId Int      @id @default(autoincrement())
-  quizId Int
 }
 
 model QuestionBank {
