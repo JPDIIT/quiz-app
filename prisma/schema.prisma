@@ -21,6 +21,7 @@ model Quiz {
   currentScore Decimal
   averageScore Decimal
   active Boolean
+  questions QuestionBank[]
 }
 
 model Scores {
@@ -37,11 +38,8 @@ model QuestionBank {
   q_num Int
   question String
   correct_answer String
-}
-
-model Rel_Quiz_Quest {
-  questId Int      @id @default(autoincrement())
   quizId Int
+  quiz Quiz @relation(fields: [quizId], references: [id])
 }
 
 model Responses {
