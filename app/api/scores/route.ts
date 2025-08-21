@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    const nextAttempt = (get_attempt._max.attempt ?? 0) + 1;
+    const nextAttempt = (get_attempt._max.attempt ?? 0) + 1
 
     const scores = await prisma.scores.create({
       data: {
@@ -54,6 +54,29 @@ export async function POST(request: NextRequest) {
         starttime: new Date(start).toISOString(),
         endtime: new Date(end).toISOString(),
         attempt: nextAttempt
+      }
+    })
+
+    //Average all the scores for this quiz
+    const avg = await prisma.scores.aggregate({
+      _avg: {
+        score: true,
+      },
+      where: {
+        quizId: quizId
+      }
+    })
+
+    const avg_score = (avg._avg.score ?? 0)
+
+    //Update quiz with current (latest) and average scores
+    const current_score = await prisma.quiz.update({
+      data: {
+        currentScore: score,
+        averageScore: avg_score
+      },
+      where: {
+        id: quizId
       }
     })
 
