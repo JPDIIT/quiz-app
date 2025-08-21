@@ -14,7 +14,7 @@ export async function GET(
     if (isNaN(quizId)) {
       return Response.json({
         success: false,
-        message: 'Invalid quiz list ID format'
+        message: 'Invalid quiz ID format'
       }, { status: 400 })
     }
 
