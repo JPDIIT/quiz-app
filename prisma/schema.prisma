@@ -40,17 +40,16 @@ model QuestionBank {
   correct_answer String
   quizId Int
   quiz Quiz @relation(fields: [quizId], references: [id])
+  responses Responses[]
 }
 
 model Responses {
   id Int      @id @default(autoincrement())
+  session Int
   response String
   correct Boolean
-}
-
-model Rel_Response_Question {
-  responseId Int      @id @default(autoincrement())
   questId Int
+  questionBank QuestionBank @relation(fields: [questId], references: [id])
 }
 
 
