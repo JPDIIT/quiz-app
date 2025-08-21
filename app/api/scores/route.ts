@@ -34,8 +34,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { score, start, end, quizId } = body
+    const { start, end, quizId, session } = body
 
+    //Calculate attempt
     const get_attempt = await prisma.scores.aggregate({
       _max: {
         attempt: true,
@@ -46,6 +47,45 @@ export async function POST(request: NextRequest) {
     })
 
     const nextAttempt = (get_attempt._max.attempt ?? 0) + 1
+
+    //Score quiz
+    //Get total questions
+    const calc_total = await prisma.questionBank.aggregate({
+      _count: {
+        question: true,
+      },
+      where: {
+        quizId: quizId, 
+      },
+    })
+
+    const totalq = (calc_total._count.question ?? 0)
+
+    //Get number of correct responses
+    const calc_correct = await prisma.responses.aggregate({
+      _count: {
+        correct: true,
+      },
+      where: {
+        AND: [
+          {session: session},
+          {correct: true}
+        ]         
+      },
+    })
+
+    const total_correct = (calc_correct._count.correct ?? 0)
+
+    if (isNaN(total_correct)) {
+      return Response.json({
+        success: false,
+        message: 'Error calculating score'
+      }, { status: 400 })
+    }
+
+    //Score quiz
+    let score = (total_correct / totalq) * 100
+    console.log(score)
 
     const scores = await prisma.scores.create({
       data: {
