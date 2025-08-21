@@ -37,10 +37,20 @@ export async function GET(
       }
     })
 
+    //Calculate session
+    const get_session = await prisma.responses.aggregate({
+      _max: {
+        session: true,
+      }
+    })
+
+    const session = (get_session._max.session ?? 0) + 1
+
     return Response.json({
       success: true,
       data: questions,
-      count: questions.length
+      count: questions.length,
+      session: session
     })
   } catch (error) {
     console.error('Error fetching questions:', error)
