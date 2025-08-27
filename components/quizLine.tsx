@@ -25,6 +25,12 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
               <h3 className="text-xl font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
                 {quiz.name}
               </h3>
+              <p>
+                Most recent score: {quiz.currentScore.toString()}
+              </p>
+              <p>
+                Average score: {quiz.averageScore.toString()}
+              </p>
             </Link>
         </div>
       </div>
