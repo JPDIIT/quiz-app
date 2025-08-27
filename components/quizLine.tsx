@@ -26,10 +26,10 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
                 {quiz.name}
               </h3>
               <p>
-                Most recent score: {quiz.currentScore.toString()}
+                Most recent score: {currentScore.toString()}
               </p>
               <p>
-                Average score: {quiz.averageScore.toString()}
+                Average score: {avgScore.toString()}
               </p>
             </Link>
         </div>
