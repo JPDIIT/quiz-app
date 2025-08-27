@@ -21,7 +21,7 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6">
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
-            <Link href={`/quizzes/${quiz.id}`}>
+            <Link href={`/quiz/${quiz.id}`}>
               <h3 className="text-xl font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
                 {quiz.subject}: {quiz.name}
               </h3>

@@ -1,4 +1,4 @@
-import { QuestionBank } from "@/app/generated/prisma";
+//import { QuestionBank } from "@/app/generated/prisma";
 import { Decimal } from "@prisma/client/runtime/library";
 
 export interface Quiz {
@@ -17,4 +17,13 @@ export interface ApiResponse<T> {
   data?: T;
   count?: number;
   error?: string;
+}
+
+export interface QuestionBank {
+  id: number;
+  q_num: number;
+  question: string;
+  correct_answer: string;
+  quizId: number;
+  quiz?: Quiz;
 }

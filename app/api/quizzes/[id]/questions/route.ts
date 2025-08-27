@@ -20,8 +20,12 @@ export async function GET(
 
     // Check if quiz exists
     const quizExists = await prisma.quiz.findUnique({
+      select: {name: true},
       where: { id: quizId }
     })
+
+    //Get Quiz Name
+    const quizName = quizExists?.name.toString()
 
     if (!quizExists) {
       return Response.json({
@@ -50,6 +54,7 @@ export async function GET(
       success: true,
       data: questions,
       count: questions.length,
+      name: quizName,
       session: session
     })
   } catch (error) {
