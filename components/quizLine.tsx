@@ -23,7 +23,7 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
         <div className="flex-1">
             <Link href={`/quizzes/${quiz.id}`}>
               <h3 className="text-xl font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
-                {quiz.name}
+                {quiz.subject}: {quiz.name}
               </h3>
               <p>
                 Most recent score: {currentScore.toString()}
