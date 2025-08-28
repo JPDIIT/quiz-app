@@ -18,8 +18,8 @@ export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
 
   const start: Date = new Date();
   const end: Date = new Date();
-  //const quizId = quizId;
-  //const session = responses.session;
+
+  const [currentScore, setCurrentScore] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +33,8 @@ export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
         });
 
         if (response.success) {
-          //response.data?.correct ? setCorrect('bg-green-200') : setCorrect('bg-red-200');
-          //setResponse('');
-          //onAdd();
+          const theScore = response.data?.score.toString() ?? "";
+          setCurrentScore(theScore);
         } else {
           console.error('Failed to submit quiz:', response.message);
         }
@@ -47,8 +46,9 @@ export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
   };
 
   return (
+    <div>
       <div>
-      {/* Quiz Form */}
+        {/* Quiz Form */}
         <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
           <button
           type="submit"
@@ -66,5 +66,10 @@ export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
           </button>
         </form>
       </div>
-    );
+      <div>
+        {/* Quiz Results */}
+        <span>Score: {currentScore}%</span>
+      </div>
+    </div>
+  );
 }
