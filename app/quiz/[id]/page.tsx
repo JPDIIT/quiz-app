@@ -108,7 +108,7 @@ export default function TakeQuiz() {
 
   return (
     <div>
-    <h1>{quiz.name }</h1> 
+    <h1 className="text-4xl font-bold text-gray-900 mb-2">{quiz.name }</h1> 
         <div className="space-y-6">
           {/* Quiz Questions */}
           {theseQuestions.length > 0 && (
