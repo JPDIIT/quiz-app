@@ -43,10 +43,10 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
         setResponse('');
         //onAdd();
       } else {
-        console.error('Failed to add item:', response.message);
+        console.error('Failed to submit answer:', response.message);
       }
     } catch (error) {
-      console.error('Error adding item:', error);
+      console.error('Error submitting answer:', error);
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +78,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
             {isLoading ? (
             <div className="flex items-center gap-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              Adding...
+              Submitting...
             </div>
             ) : (
               'Submit'
