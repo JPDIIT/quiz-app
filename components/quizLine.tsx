@@ -35,18 +35,6 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
         </div>
       </div>
 
-      <div className="mt-4">
-        <Link 
-          href={`/quizzes/${quiz.id}`}
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
-        >
-          View Details
-          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
-
       {isLoading && (
         <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-lg">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
