@@ -17,6 +17,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
   const [isLoading, setIsLoading] = useState(false);
   const [answer, setResponse] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [correct, setCorrect] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,6 +43,8 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
       });
       
       if (response.success) {
+        console.log(response.data?.correct)
+        response.data?.correct ? setCorrect('bg-green-200') : setCorrect('bg-red-200');
         //setResponse('');
         //onAdd();
       } else {
@@ -55,7 +58,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
   };
 
     return (
-    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 
+    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 ${correct}
     ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
       
 
