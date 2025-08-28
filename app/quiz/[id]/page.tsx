@@ -6,6 +6,7 @@ import { QuestionBank, Quiz } from '@/types/quiz';
 import { quizzesApi, quizQuestionsApi } from '@/lib/api';
 import QuestionBox from '@/components/QuestionBox';
 import Link from 'next/link';
+import SubmitQuiz from '@/components/SubmitQuiz';
 
 export default function TakeQuiz() {
   const params = useParams();
@@ -125,6 +126,10 @@ export default function TakeQuiz() {
               </div>
             </div>
           )}
+        </div>
+        {/* Submit and Score Quiz */}
+        <div>
+          <SubmitQuiz quizId={quizId} session={qs.session}/>
         </div>
     </div>
   );

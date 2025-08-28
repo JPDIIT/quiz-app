@@ -85,14 +85,14 @@ export async function POST(request: NextRequest) {
 
     //Score quiz
     let score = (total_correct / totalq) * 100
-    console.log(score)
+    console.log(total_correct)
 
     const scores = await prisma.scores.create({
       data: {
         quizId: quizId,
         score: score,
-        starttime: new Date(start).toISOString(),
-        endtime: new Date(end).toISOString(),
+        starttime: new Date(), //.toISOString(),
+        endtime: new Date(), //.toISOString(),
         attempt: nextAttempt
       }
     })

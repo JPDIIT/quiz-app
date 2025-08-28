@@ -1,36 +1,69 @@
 'use client';
 
-import { QuestionBank } from '@/types/quiz';
-import { quizzesApi } from '@/lib/api';
+import { Scores } from '@/types/quiz';
+import { Quiz } from '@/types/quiz';
+import { Responses } from '@/types/quiz';
+import { scoreQuizApi } from '@/lib/api';
 import { useState } from 'react';
-import QuestionBox from './QuestionBox';
 import Link from 'next/link';
 
-interface QuestionBoxProps {
-  question: QuestionBank;
-  //onUpdate: () => void;
+interface SubmitQuizProps {
+  quizId: number;
+  session: number;
 }
 
-export default function SubmitQuiz({ question}: QuestionBoxProps) {
+export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
+
+  const isLoading = false;
+
+  const start: Date = new Date();
+  const end: Date = new Date();
+  //const quizId = quizId;
+  //const session = responses.session;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+      try {
+        const response = await scoreQuizApi.create(start, end, quizId, session, {
+          starttime: start,
+          endtime: end,
+          quizId: quizId,
+          session: session
+        });
+
+        if (response.success) {
+          //response.data?.correct ? setCorrect('bg-green-200') : setCorrect('bg-red-200');
+          //setResponse('');
+          //onAdd();
+        } else {
+          console.error('Failed to submit quiz:', response.message);
+        }
+      } catch (error) {
+        console.error('Error submitting quiz:', error);
+      } finally {
+        //setIsLoading(false);
+      }
+  };
+
   return (
       <div>
       {/* Quiz Form */}
         <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <div className="space-y-6">
-            {/* Quiz Questions */}
-            {theseQuestions.length > 0 && (
-              <div>
-                <div className="space-y-2">
-                  {theseQuestions.map((item) => (
-                    <QuestionBox 
-                      key={item.id} 
-                      question={item} 
-                    />
-                  ))}
-                </div>
-              </div>
+          <button
+          type="submit"
+          //disabled={isLoading || !answer.trim() || submitted}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isLoading ? (
+            <div className="flex items-center gap-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              Scoring Quiz...
+            </div>
+            ) : (
+              'Finish'
             )}
-          </div>
+          </button>
         </form>
       </div>
     );

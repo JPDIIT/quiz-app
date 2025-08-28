@@ -1,9 +1,11 @@
+import { Scores } from '@/app/generated/prisma';
 import {
   Quiz,
   ApiResponse,
   QuestionBank,
   Responses,
-  CreateResponses
+  CreateResponses,
+  CreateScore
 } from '@/types/quiz';
 
 const API_BASE = '/api';
@@ -53,5 +55,21 @@ export const quizAnswersApi = {
       body: JSON.stringify(data),
     });
     return handleApiResponse<Responses>(response);
+  },
+};
+
+
+//Score Quiz API
+export const scoreQuizApi = {
+  // Update the quiz scores
+  create: async (start: Date, end: Date, quizId: number, session: number, data: CreateScore): Promise<ApiResponse<Scores>> => {
+    const response = await fetch(`${API_BASE}/scores/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return handleApiResponse<Scores>(response);
   },
 };

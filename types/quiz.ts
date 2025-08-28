@@ -42,3 +42,19 @@ export interface CreateResponses {
   response: string;
   questId: number;
 }
+
+export interface Scores {
+  id: number;
+  quizId: number;
+  score: number;
+  starttime: Date;
+  endtime: Date;
+  attempt: number;
+}
+
+export interface CreateScore {
+  quizId: number;
+  starttime: Date;
+  endtime: Date;
+  session: number;
+}
