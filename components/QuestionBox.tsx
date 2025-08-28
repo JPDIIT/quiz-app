@@ -63,9 +63,12 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
       
 
       {/* Question Text */}
-      <span>{question.q_num}: {question.question}
-      </span>
+      <div className="w-50 items-center gap-3 p-3">
+        <span>{question.q_num}: {question.question}
+        </span>
+      </div>
       {/* Submit Answer Form */}
+      <div className="w-full flex items-center gap-3 p-3">
       <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
         {/* Answer Box */}
         <input 
@@ -91,6 +94,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
             )}
         </button>
       </form>
+      </div>
 
       {/* Loading indicator */}
       {isLoading && (
