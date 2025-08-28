@@ -29,7 +29,7 @@ export default function QuizLine({ quiz, onUpdate}: QuizLineProps) {
                 Most recent score: {currentScore.toString()}
               </p>
               <p>
-                Average score: {avgScore.toString()}
+                Average score: {Number(avgScore).toFixed(2)}
               </p>
             </Link>
         </div>
