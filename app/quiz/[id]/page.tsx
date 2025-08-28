@@ -126,7 +126,6 @@ export default function TakeQuiz() {
             </div>
           )}
         </div>
-        
     </div>
   );
 
