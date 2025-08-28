@@ -16,6 +16,7 @@ interface QuestionBoxProps {
 export default function QuestionBox({ question, quizNumber, session}: QuestionBoxProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [answer, setResponse] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -25,6 +26,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
     if (!answer.trim()) return;
 
     setIsLoading(true);
+    setSubmitted(true);
     
     //Get question ID of answer
     const form = e.currentTarget;
@@ -40,7 +42,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
       });
       
       if (response.success) {
-        setResponse('');
+        //setResponse('');
         //onAdd();
       } else {
         console.error('Failed to submit answer:', response.message);
@@ -72,7 +74,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
         />
         <button
           type="submit"
-          //disabled={isLoading || !itemName.trim()}
+          disabled={isLoading || !answer.trim() || submitted}
           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
