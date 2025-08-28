@@ -58,7 +58,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
   };
 
     return (
-    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 ${correct}
+    <div className={`grid grid-cols-1 flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 ${correct}
     ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
       
 
