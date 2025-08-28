@@ -27,3 +27,18 @@ export interface QuestionBank {
   quizId: number;
   quiz?: Quiz;
 }
+
+export interface Responses {
+  id: number;
+  session: number;
+  response: string;
+  correct: Boolean;
+  questId: number;
+  questionBank?: QuestionBank;
+}
+
+export interface CreateResponses {
+  session: number;
+  response: string;
+  questId: number;
+}

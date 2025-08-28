@@ -1,7 +1,9 @@
 import {
   Quiz,
   ApiResponse,
-  QuestionBank
+  QuestionBank,
+  Responses,
+  CreateResponses
 } from '@/types/quiz';
 
 const API_BASE = '/api';
@@ -28,7 +30,6 @@ export const quizzesApi = {
 };
 
 
-
 //Quiz Questions API
 export const quizQuestionsApi = {
   // Get all questions for a quiz
@@ -36,5 +37,21 @@ export const quizQuestionsApi = {
     let url = `${API_BASE}/quizzes/${quizId}/questions`;
     const response = await fetch(url);
     return handleApiResponse<QuestionBank[]>(response);
+  },
+};
+
+
+//Quiz Answers API
+export const quizAnswersApi = {
+  // Post answer to a quiz question
+  create: async (quizId: number, qid: number, session: number, data: CreateResponses): Promise<ApiResponse<Responses>> => {
+    const response = await fetch(`${API_BASE}/quizzes/${quizId}/questions/${qid}/response`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return handleApiResponse<Responses>(response);
   },
 };

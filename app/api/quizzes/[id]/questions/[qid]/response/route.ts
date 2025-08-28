@@ -6,10 +6,10 @@ const prisma = new PrismaClient()
 // POST /api/quizzes/[id]/questions/[qid]/response - Answer a question
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { qid: string } }
 ) {
   try {
-    const questionId = parseInt(params.id)
+    const questionId = parseInt(await params.qid)
     
     if (isNaN(questionId)) {
       return Response.json({

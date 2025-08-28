@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Quiz } from '@/types/quiz';
+import { QuestionBank, Quiz } from '@/types/quiz';
 import { quizzesApi, quizQuestionsApi } from '@/lib/api';
 import QuestionBox from '@/components/QuestionBox';
 import Link from 'next/link';
-import { QuestionBank } from '@/app/generated/prisma';
 
 export default function TakeQuiz() {
   const params = useParams();
@@ -54,7 +53,7 @@ export default function TakeQuiz() {
       const response = await quizQuestionsApi.getAll(quizId);
       
       if (response.success && response.data) {
-        setQuestions(response.data);
+        setQuestions(response);
       } else {
         setError(response.message || 'Failed to fetch quiz');
       }
@@ -104,29 +103,30 @@ export default function TakeQuiz() {
     );
   }
 
-  const questions = qs || [];
-  const theseQuestions = questions.filter(q => q.quizId == quizId);
+  const questions = qs.data || [];
+  const theseQuestions = questions.filter((q: { quizId: number | null; }) => q.quizId == quizId);
 
   return (
     <div>
     <h1>{quiz.name }</h1> 
-    {/* Items List */}
         <div className="space-y-6">
-          {/* Pending Items */}
-          <span></span>
+          {/* Quiz Questions */}
           {theseQuestions.length > 0 && (
             <div>
               <div className="space-y-2">
-                {theseQuestions.map((item) => (
+                {theseQuestions.map((item: QuestionBank) => (
                   <QuestionBox 
                     key={item.id} 
-                    question={item} 
+                    question={item}
+                    quizNumber={quizId}
+                    session={qs.session}
                   />
                 ))}
               </div>
             </div>
           )}
         </div>
+        
     </div>
   );
 
