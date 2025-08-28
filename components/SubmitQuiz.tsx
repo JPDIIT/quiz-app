@@ -68,7 +68,7 @@ export default function SubmitQuiz({ quizId, session}: SubmitQuizProps) {
       </div>
       <div>
         {/* Quiz Results */}
-        <span>Score: {currentScore}%</span>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">Score: {currentScore}%</h3>
       </div>
     </div>
   );
