@@ -67,6 +67,7 @@ export default function QuestionBox({ question, quizNumber, session}: QuestionBo
         {/* Answer Box */}
         <input 
           type="text"
+          readOnly={submitted}
           id={question.id.toString()}
           name="answer"
           value={answer}
